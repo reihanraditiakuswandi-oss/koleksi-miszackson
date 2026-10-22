@@ -1,4 +1,7 @@
-(() => {
+  const AD_CONFIG = {
+  adsterraUrl: "https://auctionr.org/4/60cb60e3050fe037f72088a700cab7ca",
+  shopeeUrl: "https://s.shopee.co.id/W7bEEnveU"
+};
   const fallback = Array.isArray(window.VIDEO_COLLECTION) ? window.VIDEO_COLLECTION : [];
   const grid = document.getElementById("videoGrid"), folders = document.getElementById("folderList");
   const search = document.getElementById("searchInput"), sort = document.getElementById("sortSelect");
