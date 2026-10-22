@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08080c"><title>Admin — KOLEKSI MISZACKSON</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="./"><span class="brand-icon">▶</span><span>KOLEKSI MISZACKSON</span></a><a class="admin-link" href="./">Lihat galeri</a></header>
+  <main class="admin-container">
+    <section class="panel" id="loginPanel">
+      <h1>Admin login</h1>
+      <p class="small-muted">Masuk menggunakan akun admin Supabase yang sudah dibuat pemilik website.</p>
+      <div id="loginStatus" class="status" role="status">Masukkan email dan password admin.</div>
+      <form id="loginForm">
+        <div class="form-grid">
+          <div class="field full"><label for="email">Email admin</label><input id="email" type="email" autocomplete="username" required></div>
+          <div class="field full"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+        </div>
+        <div class="actions"><button class="btn primary" type="submit">Login</button></div>
+      </form>
+    </section>
+    <section class="panel" id="managerPanel" hidden>
+      <div class="section-heading"><h1>Kelola video</h1><button id="logoutButton" class="btn">Keluar</button></div>
+      <div id="managerStatus" class="status" role="status">Memuat data...</div>
+      <form id="videoForm">
+        <input id="videoId" type="hidden">
+        <div class="form-grid">
+          <div class="field"><label for="title">Judul video *</label><input id="title" maxlength="180" required></div>
+          <div class="field"><label for="category">Kategori / folder *</label><input id="category" maxlength="80" required placeholder="Contoh: Terbaru"></div>
+          <div class="field full"><label for="thumbnail">URL thumbnail gambar (opsional)</label><input id="thumbnail" type="url" placeholder="https://.../thumbnail.jpg"></div>
+          <div class="field full"><label for="videoUrl">URL video / URL embed (opsional)</label><input id="videoUrl" type="url" placeholder="https://.../video.mp4 atau URL embed"></div>
+          <div class="field"><label for="label">Teks sampul jika tanpa gambar</label><input id="label" maxlength="80" placeholder="KOLEKSI VIDEO"></div>
+          <div class="field"><label for="date">Tanggal</label><input id="date" type="date"></div>
+          <div class="field"><label for="tone1">Warna sampul 1</label><input id="tone1" type="text" value="#394e69" pattern="^#[0-9A-Fa-f]{6}$"></div>
+          <div class="field"><label for="tone2">Warna sampul 2</label><input id="tone2" type="text" value="#151a2b" pattern="^#[0-9A-Fa-f]{6}$"></div>
+        </div>
+        <div class="actions"><button class="btn primary" type="submit" id="saveButton">Simpan video</button><button class="btn" type="button" id="resetButton">Bersihkan form</button></div>
+      </form>
+      <hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
+      <h2>Daftar video</h2>
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Judul</th><th>Kategori</th><th>Tanggal</th><th>Aksi</th></tr></thead><tbody id="videoRows"></tbody></table></div>
+    </section>
+    <p class="small-muted">Keamanan akses edit/hapus ditegakkan oleh kebijakan database Supabase (RLS), bukan hanya dengan menyembunyikan halaman.</p>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="admin.js"></script>
+</body>
+</html>
