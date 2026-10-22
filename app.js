@@ -1,3 +1,4 @@
+(() => {
   const AD_CONFIG = {
   adsterraUrl: "https://auctionr.org/4/60cb60e3050fe037f72088a700cab7ca",
   shopeeUrl: "https://s.shopee.co.id/W7bEEnveU"
@@ -45,22 +46,92 @@
     try { const url = new URL(value, location.href); return ["http:", "https:"].includes(url.protocol) ? url.href : ""; }
     catch { return ""; }
   }
-  function openVideo(video) {
-    playerTitle.textContent = video.title || "Pemutar video"; playerBody.replaceChildren();
-    const url = safeUrl(video.video_url || video.videoUrl || "");
-    if (!url) {
-      const msg = document.createElement("p"); msg.style.cssText = "padding:24px;text-align:center;color:#b9b9c7";
-      msg.textContent = "URL video belum ditambahkan."; playerBody.appendChild(msg); playerNote.textContent = "";
-    } else if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(url)) {
-      const el = document.createElement("video"); el.controls = true; el.autoplay = true; el.playsInline = true; el.src = url; playerBody.appendChild(el); playerNote.textContent = "";
-    } else {
-      const frame = document.createElement("iframe"); frame.src = url; frame.title = video.title || "Video";
-      frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      frame.allowFullscreen = true; playerBody.appendChild(frame);
-      playerNote.textContent = "Gunakan URL embed jika penyedia video memerlukannya.";
-    }
-    dialog.showModal();
+  
+function openVideo(video) {
+  playerTitle.textContent = video.title || "Pemutar video";
+  playerBody.replaceChildren();
+
+  const preAdPanel = document.getElementById("preAdPanel");
+  const timedAdOverlay = document.getElementById("timedAdOverlay");
+  const adsterraLink = document.getElementById("adsterraLink");
+  const shopeeLink = document.getElementById("shopeeLink");
+  const continueVideo = document.getElementById("continueVideo");
+  const timedAdLink = document.getElementById("timedAdLink");
+  const closeTimedAd = document.getElementById("closeTimedAd");
+
+  adsterraLink.href = AD_CONFIG.adsterraUrl;
+  shopeeLink.href = AD_CONFIG.shopeeUrl;
+  timedAdLink.href = AD_CONFIG.adsterraUrl;
+
+  preAdPanel.hidden = false;
+  timedAdOverlay.hidden = true;
+
+  const url = safeUrl(video.video_url || video.videoUrl || "");
+  let videoElement = null;
+  let secondsPlayed = 0;
+  let lastTime = null;
+  let adShown = false;
+
+  if (!url) {
+    playerNote.textContent = "URL video belum ditambahkan.";
+  } else if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(url)) {
+    videoElement = document.createElement("video");
+    videoElement.controls = true;
+    videoElement.playsInline = true;
+    videoElement.src = url;
+    playerBody.appendChild(videoElement);
+    playerNote.textContent = "";
+  } else {
+    const frame = document.createElement("iframe");
+    frame.src = url;
+    frame.title = video.title || "Video";
+    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    frame.allowFullscreen = true;
+    playerBody.appendChild(frame);
+    playerNote.textContent = "Gunakan URL embed jika penyedia video memerlukannya. Iklan kedua otomatis hanya didukung untuk video MP4/WebM/OGG.";
   }
+
+  continueVideo.onclick = () => {
+    preAdPanel.hidden = true;
+
+    if (videoElement) {
+      videoElement.play().catch(() => {
+        playerNote.textContent = "Tekan tombol Play pada video untuk mulai memutar.";
+      });
+    }
+  };
+
+  if (videoElement) {
+    videoElement.addEventListener("timeupdate", () => {
+      if (!videoElement.paused && !videoElement.ended && lastTime !== null) {
+        secondsPlayed += Math.max(0, videoElement.currentTime - lastTime);
+      }
+
+      lastTime = videoElement.currentTime;
+
+      if (secondsPlayed >= 60 && !adShown) {
+        adShown = true;
+        timedAdOverlay.hidden = false;
+        videoElement.pause();
+      }
+    });
+
+    videoElement.addEventListener("seeking", () => {
+      lastTime = videoElement.currentTime;
+    });
+  }
+
+  closeTimedAd.onclick = () => {
+    timedAdOverlay.hidden = true;
+
+    if (videoElement) {
+      videoElement.play().catch(() => {});
+    }
+  };
+
+  dialog.showModal();
+}
+
   function render() {
     const q = search.value.trim().toLocaleLowerCase("id");
     let list = videos.filter(v => (activeCategory === "Semua" || v.category === activeCategory) &&
