@@ -64,7 +64,9 @@ function openVideo(video) {
   timedAdLink.href = AD_CONFIG.adsterraUrl;
 
   preAdPanel.hidden = false;
+  playerBody.hidden = true;
   timedAdOverlay.hidden = true;
+  continueVideo.onclick
 
   const url = safeUrl(video.video_url || video.videoUrl || "");
   let videoElement = null;
