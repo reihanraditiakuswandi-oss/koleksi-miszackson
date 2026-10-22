@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08080c">
+  <meta name="description" content="KOLEKSI MISZACKSON — galeri video dengan tampilan gelap.">
+  <title>KOLEKSI MISZACKSON</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="KOLEKSI MISZACKSON beranda">
+      <span class="brand-icon" aria-hidden="true">▶</span>
+      <span>KOLEKSI MISZACKSON</span>
+    </a>
+    <button class="menu-button" id="menuButton" aria-label="Buka menu" aria-expanded="false">☰</button>
+  </header>
+
+  <main class="container">
+    <section class="folder-section">
+      <h2>Folder</h2>
+      <div class="folder-list" id="folderList" aria-label="Kategori video"></div>
+    </section>
+
+    <section class="video-section">
+      <div class="section-heading">
+        <h2>Video</h2>
+        <span id="resultCount" class="muted"></span>
+      </div>
+      <div class="toolbar">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search" placeholder="Cari video..." aria-label="Cari video">
+        </label>
+        <select id="sortSelect" aria-label="Urutkan video">
+          <option value="newest">Terbaru dulu</option>
+          <option value="title">Nama A–Z</option>
+        </select>
+      </div>
+      <div class="video-grid" id="videoGrid"></div>
+      <p class="empty-state" id="emptyState" hidden>Tidak ada video yang cocok dengan pencarian.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© <span id="year"></span> KOLEKSI MISZACKSON</span>
+    <span>Gunakan hanya video yang kamu miliki atau berhak untuk ditayangkan.</span>
+  </footer>
+
+  <dialog id="playerDialog" class="player-dialog">
+    <div class="player-topbar">
+      <strong id="playerTitle">Pemutar video</strong>
+      <button id="closePlayer" class="close-button" aria-label="Tutup pemutar">✕</button>
+    </div>
+    <div id="playerBody" class="player-body"></div>
+    <p id="playerNote" class="player-note"></p>
+  </dialog>
+
+  <script src="videos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
