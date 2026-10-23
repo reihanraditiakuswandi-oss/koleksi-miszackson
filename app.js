@@ -94,7 +94,8 @@ function openVideo(video) {
   }
 
   continueVideo.onclick = () => {
-    preAdPanel.hidden = true;
+  preAdPanel.hidden = true;
+  playerBody.hidden = false;
 
     if (videoElement) {
       videoElement.play().catch(() => {
