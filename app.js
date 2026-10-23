@@ -112,7 +112,7 @@ function openVideo(video) {
 
       lastTime = videoElement.currentTime;
 
-      if (secondsPlayed >= 60 && !adShown) {
+      if (secondsPlayed >= 3 && !adShown) {
         adShown = true;
         timedAdOverlay.hidden = false;
         videoElement.pause();
