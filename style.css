@@ -66,6 +66,21 @@ select,input,textarea{border:1px solid var(--border);background:var(--panel);col
   padding: 20px;
   background: #000d;
 }
+.player-dialog {
+  position: relative;
+}
+
+.timed-ad {
+  position: absolute;
+  inset: 60px 0 0 0;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.88);
+}
+
+.timed-ad-card {
+  position: relative;
+  z-index: 21;
+}
 
 .timed-ad-card {
   width: min(440px, 100%);
