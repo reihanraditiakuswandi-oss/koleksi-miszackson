@@ -87,16 +87,7 @@ playerBody.hidden = false;
     playerNote.textContent = "Gunakan URL embed jika penyedia video memerlukannya. Iklan kedua otomatis hanya didukung untuk video MP4/WebM/OGG.";
   }
 
-  continueVideo.onclick = () => {
-  preAdPanel.hidden = true;
-  playerBody.hidden = false;
 
-    if (videoElement) {
-      videoElement.play().catch(() => {
-        playerNote.textContent = "Tekan tombol Play pada video untuk mulai memutar.";
-      });
-    }
-  };
 
   if (videoElement) {
     videoElement.addEventListener("timeupdate", () => {
