@@ -51,22 +51,16 @@ function openVideo(video) {
   playerTitle.textContent = video.title || "Pemutar video";
   playerBody.replaceChildren();
 
-  const preAdPanel = document.getElementById("preAdPanel");
-  const timedAdOverlay = document.getElementById("timedAdOverlay");
-  const adsterraLink = document.getElementById("adsterraLink");
-  const shopeeLink = document.getElementById("shopeeLink");
-  const continueVideo = document.getElementById("continueVideo");
-  const timedAdLink = document.getElementById("timedAdLink");
-  const closeTimedAd = document.getElementById("closeTimedAd");
+const timedAdOverlay = document.getElementById("timedAdOverlay");
+const timedAdLink = document.getElementById("timedAdLink");
+const closeTimedAd = document.getElementById("closeTimedAd");
 
-  adsterraLink.href = AD_CONFIG.adsterraUrl;
-  shopeeLink.href = AD_CONFIG.shopeeUrl;
-  timedAdLink.href = AD_CONFIG.adsterraUrl;
-
-  preAdPanel.hidden = false;
-  playerBody.hidden = true;
-  timedAdOverlay.hidden = true;
-  continueVideo.onclick
+if (timedAdLink) timedAdLink.href = AD_CONFIG.adsterraUrl;
+if (timedAdOverlay) timedAdOverlay.hidden = true;
+if (closeTimedAd) closeTimedAd.onclick = () => {
+  if (timedAdOverlay) timedAdOverlay.hidden = true;
+};
+playerBody.hidden = false;
 
   const url = safeUrl(video.video_url || video.videoUrl || "");
   let videoElement = null;
