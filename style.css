@@ -107,3 +107,49 @@ select,input,textarea{border:1px solid var(--border);background:var(--panel);col
   border: 0;
   border-radius: 8px;
 }
+
+
+
+/* Tombol Play di tengah video */
+.video-center-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 64px;
+    height: 64px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+
+    background: rgba(20, 30, 45, 0.8);
+    color: #ffffff;
+    font-size: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    z-index: 10;
+    padding: 0;
+    line-height: 1;
+    box-sizing: border-box;
+
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.video-center-play:hover {
+    background: rgba(22, 142, 234, 0.95);
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* Ukuran tombol untuk layar HP */
+@media (max-width: 480px) {
+    .video-center-play {
+        width: 54px;
+        height: 54px;
+        font-size: 24px;
+    }
+}
+
