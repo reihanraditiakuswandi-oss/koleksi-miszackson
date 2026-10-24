@@ -64,6 +64,7 @@ function openVideo(video) {
   let secondsPlayed = 0;
   let lastTime = null;
   let adShown = false;
+  let shopeeOpened = false;
 
   const url = safeUrl(video.video_url || video.videoUrl || "");
 
@@ -109,9 +110,8 @@ function openVideo(video) {
       }
     });
 
-    videoElement.addEventListener("seeking", () => {
-      lastTime = videoElement.currentTime;
-    });
+
+    
   }
   if (!videoElement && timedAdOverlay) {
     setTimeout(() => {
