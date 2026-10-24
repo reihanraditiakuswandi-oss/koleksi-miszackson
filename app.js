@@ -117,14 +117,7 @@ function openVideo(video) {
     }
 });
     }
-  if (!videoElement && timedAdOverlay) {
-    setTimeout(() => {
-      if (dialog.open && !adShown) {
-        adShown = true;
-        timedAdOverlay.hidden = false;
-      }
-    }, 5000);
-  }
+ 
   
   if (closeTimedAd) {
     closeTimedAd.onclick = () => {
