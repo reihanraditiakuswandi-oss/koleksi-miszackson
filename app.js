@@ -49,7 +49,7 @@
   
 
 function openVideo(video) {
-  
+  window.open(AD_CONFIG.adsterraUrl, "_blank", "noopener,noreferrer");
   playerTitle.textContent = video.title || "Pemutar video";
   playerBody.replaceChildren();
   playerBody.hidden = false;
@@ -130,6 +130,7 @@ function openVideo(video) {
 
   if (!dialog.open) dialog.showModal();
 }
+  
 
 
   function render() {
