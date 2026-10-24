@@ -49,7 +49,7 @@
   
 
 function openVideo(video) {
-  const adsterraTab = window.open(AD_CONFIG.adsterraUrl, "_blank", "noopener,noreferrer");
+  
   playerTitle.textContent = video.title || "Pemutar video";
   playerBody.replaceChildren();
   playerBody.hidden = false;
@@ -104,11 +104,7 @@ function openVideo(video) {
 
       lastTime = videoElement.currentTime;
 
-      if (secondsPlayed >= 1 && !adShown) {
-        adShown = true;
-        if (timedAdOverlay) timedAdOverlay.hidden = false;
-        videoElement.pause();
-      }
+    
     });
 
 
