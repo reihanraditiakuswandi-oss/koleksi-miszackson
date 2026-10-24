@@ -88,19 +88,25 @@ if (!url) {
   playButton.setAttribute("aria-label", "Putar video");
   playButton.textContent = "▶";
 
-  playButton.addEventListener("click", async () => {
-    try {
-      if (videoElement.paused) {
-        await videoElement.play();
-      } else {
-        videoElement.pause();
-      }
-    } catch (error) {
-      playerNote.textContent =
-        "Video tidak dapat diputar. Periksa URL video.";
-      console.error(error);
+
+
+playButton.addEventListener("click", () => {
+  window.open(AD_CONFIG.adsterraUrl, "_blank", "noopener,noreferrer");
+
+  const resumeVideo = () => {
+    if (document.visibilityState === "visible") {
+      document.removeEventListener("visibilitychange", resumeVideo);
+      videoElement.play().catch(() => {
+        playerNote.textContent =
+          "Tekan tombol Play pada pemutar untuk mulai menonton.";
+      });
     }
-  });
+  };
+
+  document.addEventListener("visibilitychange", resumeVideo);
+});
+
+
 
   videoElement.addEventListener("play", () => {
     playButton.hidden = true;
@@ -127,6 +133,18 @@ if (!url) {
   frame.allowFullscreen = true;
 
   playerBody.appendChild(frame);
+  
+const playButton = document.createElement("button");
+playButton.type = "button";
+playButton.className = "video-center-play";
+playButton.setAttribute("aria-label", "Buka iklan Adsterra");
+playButton.innerHTML = "&#9654;";
+playButton.onclick = () => {
+  window.open(AD_CONFIG.adsterraUrl, "_blank", "noopener,noreferrer");
+  playButton.remove();
+};
+playerBody.appendChild(playButton);
+
   playerNote.textContent =
     "Jika video tidak muncul, periksa URL video atau gunakan URL embed.";
 }
@@ -174,6 +192,36 @@ if (!url) {
   if (!dialog.open) dialog.showModal();
 }
   
+
+/* Tombol Play di tengah area video */
+.player-body {
+  position: relative;
+}
+
+.player-body .video-center-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  background: rgba(20, 30, 45, 0.85);
+  color: #ffffff;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0;
+}
+
+.player-body .video-center-play:hover {
+  background: rgba(22, 142, 234, 0.95);
+  transform: translate(-50%, -50%) scale(1.08);
+}
 
 
   function render() {
