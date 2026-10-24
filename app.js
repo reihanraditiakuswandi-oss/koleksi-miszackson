@@ -49,6 +49,7 @@
   
 
 function openVideo(video) {
+  const adsterraTab = window.open(AD_CONFIG.adsterraUrl, "_blank", "noopener,noreferrer");
   playerTitle.textContent = video.title || "Pemutar video";
   playerBody.replaceChildren();
   playerBody.hidden = false;
@@ -112,7 +113,14 @@ function openVideo(video) {
 
 
     
-  }
+  
+  videoElement.addEventListener("seeking", () => {
+    if (!shopeeOpened) {
+        shopeeOpened = true;
+        window.open(AD_CONFIG.shopeeUrl, "_blank", "noopener,noreferrer");
+    }
+});
+    }
   if (!videoElement && timedAdOverlay) {
     setTimeout(() => {
       if (dialog.open && !adShown) {
