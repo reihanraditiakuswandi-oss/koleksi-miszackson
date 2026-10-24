@@ -69,25 +69,64 @@ function openVideo(video) {
 
   const url = safeUrl(video.video_url || video.videoUrl || "");
 
-  if (!url) {
+
+if (!url) {
     playerNote.textContent = "URL video belum ditambahkan.";
-  } else if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(url)) {
+} else if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(url)) {
+    const videoWrap = document.createElement("div");
+    videoWrap.className = "player-video-wrap";
+
     videoElement = document.createElement("video");
     videoElement.controls = true;
     videoElement.playsInline = true;
     videoElement.src = url;
-    playerBody.appendChild(videoElement);
+
+    const playButton = document.createElement("button");
+    playButton.className = "video-center-play";
+    playButton.type = "button";
+    playButton.setAttribute("aria-label", "Putar video");
+    playButton.textContent = "▶";
+
+    playButton.addEventListener("click", async () => {
+        if (videoElement.paused) {
+            try {
+                await videoElement.play();
+            } catch (error) {
+                console.error("Video gagal diputar:", error);
+            }
+        } else {
+            videoElement.pause();
+        }
+    });
+
+    videoElement.addEventListener("play", () => {
+        playButton.hidden = true;
+    });
+
+    videoElement.addEventListener("pause", () => {
+        playButton.hidden = false;
+    });
+
+    videoElement.addEventListener("ended", () => {
+        playButton.hidden = false;
+    });
+
+    videoWrap.appendChild(videoElement);
+    videoWrap.appendChild(playButton);
+    playerBody.appendChild(videoWrap);
     playerNote.textContent = "";
-  } else {
+} else {
     const frame = document.createElement("iframe");
     frame.src = url;
     frame.title = video.title || "Video";
     frame.allow = "autoplay; encrypted-media; picture-in-picture";
     frame.allowFullscreen = true;
+
     playerBody.appendChild(frame);
     playerNote.textContent =
-      "Jika video tidak muncul, periksa URL video atau gunakan URL embed.";
-  }
+        "Jika video tidak muncul, periksa URL video atau gunakan URL embed.";
+}
+
 
   if (videoElement) {
     videoElement.addEventListener("timeupdate", () => {
