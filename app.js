@@ -91,20 +91,9 @@ if (!url) {
 
 
 playButton.addEventListener("click", () => {
-  window.open(AD_CONFIG.adsterraUrl, "_blank", "noopener,noreferrer");
+  window.open(AD_CONFIG.shopeeUrl, "_blank", "noopener,noreferrer");
 
-  const resumeVideo = () => {
-    if (document.visibilityState === "visible") {
-      document.removeEventListener("visibilitychange", resumeVideo);
-      videoElement.play().catch(() => {
-        playerNote.textContent =
-          "Tekan tombol Play pada pemutar untuk mulai menonton.";
-      });
-    }
-  };
-
-  document.addEventListener("visibilitychange", resumeVideo);
-});
+  
 
 
 
@@ -137,10 +126,10 @@ playButton.addEventListener("click", () => {
 const playButton = document.createElement("button");
 playButton.type = "button";
 playButton.className = "video-center-play";
-playButton.setAttribute("aria-label", "Buka iklan Adsterra");
+playButton.setAttribute("aria-label", "Buka iklan Shopee");
 playButton.innerHTML = "&#9654;";
 playButton.onclick = () => {
-  window.open(AD_CONFIG.adsterraUrl, "_blank", "noopener,noreferrer");
+  window.open(AD_CONFIG.shopeeUrl, "_blank", "noopener,noreferrer");
   playButton.remove();
 };
 playerBody.appendChild(playButton);
