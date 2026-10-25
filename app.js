@@ -180,38 +180,6 @@ playerBody.appendChild(playButton);
 
   if (!dialog.open) dialog.showModal();
 }
-  
-
-/* Tombol Play di tengah area video */
-.player-body {
-  position: relative;
-}
-
-.player-body .video-center-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
-  border: 3px solid #ffffff;
-  border-radius: 50%;
-  background: rgba(20, 30, 45, 0.85);
-  color: #ffffff;
-  font-size: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  padding: 0;
-}
-
-.player-body .video-center-play:hover {
-  background: rgba(22, 142, 234, 0.95);
-  transform: translate(-50%, -50%) scale(1.08);
-}
-
 
   function render() {
     const q = search.value.trim().toLocaleLowerCase("id");
